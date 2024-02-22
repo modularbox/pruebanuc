@@ -40,17 +40,17 @@ def get_light_state_from_api():
     except requests.exceptions.ConnectionError:
         return None
 
+    # Datos de la api
+    data = response.json()
     # If there is no command, return None
     if response.status_code != 200:
         return None
     if guardar_configuracion == None:
-        guardar_configuracion = response
+        guardar_configuracion = data
     else:
-        if response == guardar_configuracion:
+        if data == guardar_configuracion:
             return None
     
-    # Datos de la api
-    data = response.json()
     # def setChannelsFromColour(color):
     #     focos_encendidos = None
     #     colores = {
