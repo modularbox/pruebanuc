@@ -63,8 +63,6 @@ def get_light_state_from_api():
         if len(sys.argv) > 1:
             parametro = sys.argv[1]
             print("El valor del parámetro es:", parametro)
-        else:
-            print("No se proporcionó ningún parámetro.")
 
         response = requests.get(f"https://api.conectateriolobos.es/luces/{parametro}")
     except requests.exceptions.ConnectionError:
@@ -85,6 +83,7 @@ def get_light_state_from_api():
             luces_encendidas = False
             print("ApagarLuces")
             off_all_channels()
+        else:
             return None
 
     # Encender las luces
@@ -96,7 +95,6 @@ def get_light_state_from_api():
             guardar_configuracion_luces = luces
     else:
         guardar_configuracion_luces = luces
-
 
     return luces
 
