@@ -30,7 +30,7 @@ def apagar_luz(channel):
 
 def off_all_channels():
     for i in range(500):
-        custom_fixture.dim(255, 0, i)
+        custom_fixture.dim(0, 0, i)
     
 
 def ciclo_luces(luces):
