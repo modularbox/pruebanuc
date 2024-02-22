@@ -22,7 +22,7 @@ light_fixture_model = FixtureModel('RGBW')
 bsq_fixture_model = FixtureModel("DRGBWSEP")
 custom_fixture = dmx.add_fixture(Custom,name="CustomFixture", start_channel=1, channels=500)
 bsq_fixture_model.setup_fixture(custom_fixture)
-guardar_configuracion = ''
+guardar_configuracion = None
 def encender_luz(channel):
     custom_fixture.dim(255, 0, channel - 1)
 def apagar_luz(channel):
