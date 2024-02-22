@@ -21,7 +21,9 @@ light_fixture_model = FixtureModel('RGBW')
 bsq_fixture_model = FixtureModel("DRGBWSEP")
 custom_fixture = dmx.add_fixture(Custom,name="CustomFixture", start_channel=1, channels=500)
 bsq_fixture_model.setup_fixture(custom_fixture)
-guardar_configuracion = ''
+
+inicio_api = True
+guardar_configuracion = None
 
 def encender_luz(channel):
     custom_fixture.dim(255, 0, channel - 1)
@@ -44,11 +46,12 @@ def get_light_state_from_api():
     # Datos de la api
     data = response.json()
     print(data)
-    # if guardar_configuracion == '':
-    #     guardar_configuracion = data
-    # else:
-    #     if response == guardar_configuracion:
-    #         return None
+    if inicio_api:
+        guardar_configuracion = data
+        inicio_api = False
+    else:
+        if response == guardar_configuracion:
+            return None
     
     # If there is a command, return it
     print(response)
@@ -58,6 +61,7 @@ def get_light_state_from_api():
 
 while True:
     luces = get_light_state_from_api()
+    print(luces)
     if luces != None: 
         ciclo_luces(luces.encender)
 
