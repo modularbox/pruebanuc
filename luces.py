@@ -28,6 +28,11 @@ def encender_luz(channel):
 def apagar_luz(channel):
     custom_fixture.dim(0, 0, channel - 1)
 
+def off_all_channels():
+    for i in range(500):
+        custom_fixture.dim(255, 0, i)
+    
+
 def ciclo_luces(luces):
     for channel in luces:
         encender_luz(channel)
@@ -52,7 +57,7 @@ def get_light_state_from_api():
             return None
         else:
             print("ApagarLuces")
-            custom_fixture.off()
+            off_all_channels()
     else:
         guardar_configuracion_luces = luces
     return luces
