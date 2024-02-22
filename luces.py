@@ -58,6 +58,7 @@ def verificar_horarios(horarios):
 
 def get_light_state_from_api():
     global guardar_configuracion_luces
+    global luces_apagadas
     try:
 
         # Obtener el primer argumento de la línea de comandos
@@ -85,13 +86,17 @@ def get_light_state_from_api():
             return None
         else:
             guardar_configuracion_luces = luces
-            print("ApagarLuces")
-            off_all_channels()
     else:
         guardar_configuracion_luces = luces
 
     if not verificar_horarios(data.get('horarios')):
+        if luces_apagadas:
+            luces_apagadas = True
+            print("ApagarLuces")
+            off_all_channels()
         return None
+    else:
+        luces_apagadas = False
 
     return luces
 
