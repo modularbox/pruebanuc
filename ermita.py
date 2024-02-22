@@ -16,13 +16,12 @@ from luces_json import Luces
 #     print("No se pudieron cargar las luces desde el JSON.")
 
 dmx = OpenDMXController()
-light_fixture_model = FixtureModel('RGBW') 
 # Big square fixture model
 bsq_fixture_model = FixtureModel("DRGBWSEP")
 custom_fixture = dmx.add_fixture(Custom,name="CustomFixture", start_channel=1, channels=500)
 bsq_fixture_model.setup_fixture(custom_fixture)
 
-guardar_configuracion = None
+guardar_luces_encendidas = None
 
 def encender_luz(channel):
     custom_fixture.dim(255, 0, channel - 1)

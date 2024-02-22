@@ -16,13 +16,12 @@ from luces_json import Luces
 #     print("No se pudieron cargar las luces desde el JSON.")
 
 dmx = OpenDMXController()
-light_fixture_model = FixtureModel('RGBW') 
 # Big square fixture model
 bsq_fixture_model = FixtureModel("DRGBWSEP")
 custom_fixture = dmx.add_fixture(Custom,name="CustomFixture", start_channel=1, channels=500)
 bsq_fixture_model.setup_fixture(custom_fixture)
 
-guardar_configuracion = None
+guardar_configuracion_luces = None
 
 def encender_luz(channel):
     custom_fixture.dim(255, 0, channel - 1)
@@ -34,7 +33,7 @@ def ciclo_luces(luces):
         encender_luz(channel)
 
 def get_light_state_from_api():
-    global guardar_configuracion
+    global guardar_configuracion_luces
     try:
         response = requests.get("https://api.conectateriolobos.es/luces/ermita")
     except requests.exceptions.ConnectionError:
@@ -46,16 +45,16 @@ def get_light_state_from_api():
     # Datos de la api
     data = response.json()
     print(data)
-    if guardar_configuracion == None:
-        guardar_configuracion = data
-    else:
-        if response == guardar_configuracion:
-            return None
-    
     # If there is a command, return it
     print(response)
     print(response.json())
     luces = Luces(data.get('encender'), data.get('apagar'))
+    if isinstance(guardar_configuracion_luces, Luces): 
+        if luces.encender == guardar_configuracion_luces.encender:
+            return None
+    else:
+        guardar_configuracion_luces = luces
+        custom_fixture.off()
     return luces
 
 while True:
