@@ -45,11 +45,11 @@ while True:
         if guardar_configuracion == response:
             return None
         
-        guardar_configuracion = response
+        data = response.json()
+        guardar_configuracion = data
         # If there is a command, return it
         print(response)
         print(response.json())
-        data = response.json()
         luces = Luces(data.get('encender'), data.get('apagar'))
         return luces
     
