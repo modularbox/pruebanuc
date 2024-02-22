@@ -24,7 +24,7 @@ custom_fixture = dmx.add_fixture(Custom,name="CustomFixture", start_channel=1, c
 bsq_fixture_model.setup_fixture(custom_fixture)
 
 guardar_configuracion_luces = None
-luces_apagadas = False
+luces_encendidas = False
 def encender_luz(channel):
     custom_fixture.dim(255, 0, channel - 1)
 def apagar_luz(channel):
@@ -60,7 +60,7 @@ def verificar_horarios(horarios):
 
 def get_light_state_from_api():
     global guardar_configuracion_luces
-    global luces_apagadas
+    global luces_encendidas
     try:
 
         # Obtener el primer argumento de la línea de comandos
@@ -83,14 +83,14 @@ def get_light_state_from_api():
     data = response.json()
     # Verificar el horario para encender las luces o apagarlas
 
-    if not verificar_horarios(data.get('horarios')):
-        if not luces_apagadas:
-            luces_apagadas = True
+    if verificar_horarios(data.get('horarios')):
+        luces_encendidas = True
+    else:
+        if luces_encendidas:
+            luces_encendidas = False
             print("ApagarLuces")
             off_all_channels()
-        return None
-    else:
-        luces_apagadas = False
+
     # Encender las luces
     luces = Luces(data.get('encender'), data.get('apagar'))
     if isinstance(guardar_configuracion_luces, Luces): 
