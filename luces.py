@@ -24,7 +24,7 @@ custom_fixture = dmx.add_fixture(Custom,name="CustomFixture", start_channel=1, c
 bsq_fixture_model.setup_fixture(custom_fixture)
 
 guardar_configuracion_luces = None
-luces_apagadas = True
+luces_apagadas = False
 def encender_luz(channel):
     custom_fixture.dim(255, 0, channel - 1)
 def apagar_luz(channel):
