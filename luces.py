@@ -43,11 +43,12 @@ while True:
         if response.status_code != 200:
             return None
         data = response.json()
-
-        if response  == guardar_configuracion:
-            return None
+        if guardar_configuracion != None:
+            guardar_configuracion = data
+        else:
+            if response == guardar_configuracion:
+                return None
         
-        guardar_configuracion = data
         # If there is a command, return it
         print(response)
         print(response.json())
