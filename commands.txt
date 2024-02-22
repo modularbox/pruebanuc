@@ -14,6 +14,9 @@ sudo systemctl daemon-reload
 # Copiar el servicio para que se inicie al principio
 cp auto-restart.service /etc/systemd/system/
 
+# Matar un proceso 
+ps aux | grep luces.py
+kill number
 
 // {
 //     "encender": [1,3,12,21,23,31,33,42,52],

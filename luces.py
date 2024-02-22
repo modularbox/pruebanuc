@@ -22,7 +22,6 @@ bsq_fixture_model = FixtureModel("DRGBWSEP")
 custom_fixture = dmx.add_fixture(Custom,name="CustomFixture", start_channel=1, channels=500)
 bsq_fixture_model.setup_fixture(custom_fixture)
 
-inicio_api = True
 guardar_configuracion = None
 
 def encender_luz(channel):
@@ -35,6 +34,7 @@ def ciclo_luces(luces):
         encender_luz(channel)
 
 def get_light_state_from_api():
+    global guardar_configuracion
     try:
         response = requests.get("https://api.conectateriolobos.es/luces/ermita")
     except requests.exceptions.ConnectionError:
@@ -46,9 +46,8 @@ def get_light_state_from_api():
     # Datos de la api
     data = response.json()
     print(data)
-    if inicio_api:
+    if guardar_configuracion == None:
         guardar_configuracion = data
-        inicio_api = False
     else:
         if response == guardar_configuracion:
             return None
