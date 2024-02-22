@@ -23,6 +23,6 @@ k
 // }
 curl -X POST -H "Content-Type: application/json" -d '{"encender": [],"apagar": []}' https://api.conectateriolobos.es/luces/ermita
 
-curl -X POST -H "Content-Type: application/json" -d '{"encender": [1,2,12,21,22,31,32,41,51],"apagar": [], "horarios": [{"horario_inicio": "22:39:00","horario_fin": "22:45:00"},{"horario_inicio": "00:00:00","horario_fin": "01:27:00"}]}' https://api.conectateriolobos.es/luces/ermita
+curl -X POST -H "Content-Type: application/json" -d '{"encender": [1,2,12,21,22,31,32,41,51],"apagar": [], "horarios": [{"horario_inicio": "22:55:00","horario_fin": "22:56:00"},{"horario_inicio": "00:00:00","horario_fin": "01:27:00"}]}' https://api.conectateriolobos.es/luces/ermita
 
 horario

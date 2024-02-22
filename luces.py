@@ -79,15 +79,7 @@ def get_light_state_from_api():
     
     # Datos de la api
     data = response.json()
-    
-    luces = Luces(data.get('encender'), data.get('apagar'))
-    if isinstance(guardar_configuracion_luces, Luces): 
-        if luces.encender == guardar_configuracion_luces.encender:
-            return None
-        else:
-            guardar_configuracion_luces = luces
-    else:
-        guardar_configuracion_luces = luces
+    # Verificar el horario para encender las luces o apagarlas
 
     if not verificar_horarios(data.get('horarios')):
         if luces_apagadas:
@@ -97,6 +89,16 @@ def get_light_state_from_api():
         return None
     else:
         luces_apagadas = False
+    # Encender las luces
+    luces = Luces(data.get('encender'), data.get('apagar'))
+    if isinstance(guardar_configuracion_luces, Luces): 
+        if luces.encender == guardar_configuracion_luces.encender:
+            return None
+        else:
+            guardar_configuracion_luces = luces
+    else:
+        guardar_configuracion_luces = luces
+
 
     return luces
 
