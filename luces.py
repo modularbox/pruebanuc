@@ -44,11 +44,11 @@ def get_light_state_from_api():
     # Datos de la api
     data = response.json()
     print(data)
-    if guardar_configuracion == '':
-        guardar_configuracion = data
-    else:
-        if response == guardar_configuracion:
-            return None
+    # if guardar_configuracion == '':
+    #     guardar_configuracion = data
+    # else:
+    #     if response == guardar_configuracion:
+    #         return None
     
     # If there is a command, return it
     print(response)
