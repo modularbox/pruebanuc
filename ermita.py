@@ -49,6 +49,7 @@ def get_light_state_from_api():
         guardar_configuracion = data
     else:
         if data == guardar_configuracion:
+            print("Es igual")
             return None
     
     # def setChannelsFromColour(color):
