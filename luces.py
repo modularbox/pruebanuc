@@ -45,16 +45,16 @@ def get_light_state_from_api():
     # Datos de la api
     data = response.json()
     print(data)
-    # If there is a command, return it
-    print(response)
-    print(response.json())
     luces = Luces(data.get('encender'), data.get('apagar'))
     if isinstance(guardar_configuracion_luces, Luces): 
         if luces.encender == guardar_configuracion_luces.encender:
+            print("Es igual")
             return None
+        else:
+            print("ApagarLuces")
+            custom_fixture.off()
     else:
         guardar_configuracion_luces = luces
-        custom_fixture.off()
     return luces
 
 while True:
