@@ -2,3 +2,4 @@ client_socket.py
 commands.txt
 sendbtn.py
 servidor_socket.py
+verificarhora.py
