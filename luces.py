@@ -90,6 +90,7 @@ def get_light_state_from_api():
             luces_encendidas = False
             print("ApagarLuces")
             off_all_channels()
+            return None
 
     # Encender las luces
     luces = Luces(data.get('encender'), data.get('apagar'))
