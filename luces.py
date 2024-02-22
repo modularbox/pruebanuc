@@ -1,5 +1,6 @@
 import time 
 from PyDMXControl.controllers import OpenDMXController
+from PyDMXControl.profiles.Generic import Custom
 from fixture_model import FixtureModel
 dmx = OpenDMXController()
 light_fixture_model = FixtureModel('RGBW') 
@@ -7,13 +8,9 @@ light_fixture_model = FixtureModel('RGBW')
 # Big square fixture model
 bsq_fixture_model = FixtureModel("DRGBWSEP")
 
-lights = []
-lights2 = [] 
-lights3  = []
-listLights = []
-
 custom_fixture = dmx.add_fixture(Custom,name="CustomFixture", start_channel=1, channels=500)
 bsq_fixture_model.setup_fixture(custom_fixture)
+
 print("EncenderLuces")
 custom_fixture.dim(255, 0, 1)
 custom_fixture.dim(255, 0, 2)
@@ -26,7 +23,6 @@ custom_fixture.dim(255, 0, 22)
 custom_fixture.dim(255, 0, 29)
 
 def encender():
-    
     custom_fixture.dim(255, 0, 1)
     custom_fixture.dim(255, 0, 2)
     custom_fixture.dim(255, 0, 3)
@@ -39,8 +35,6 @@ def encender():
 
 encender()
 while True:
-    # print("gehvbhdsb")
-
     time.sleep(3)
 print("LucesTermino")
 """

@@ -1,0 +1,12 @@
+[Unit]
+Description=Iniciar luces
+
+[Service]
+ExecStart=/usr/bin/python3 /luces/pruebanuc/luces.py
+Restart=always
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=programa
+
+[Install]
+WantedBy=multi-user.target

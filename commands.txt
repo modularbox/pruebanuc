@@ -1,0 +1,15 @@
+# Programar el python para que se ejecute al inicio
+systemctl daemon-reload
+systemctl enable auto-restart.service
+systemctl start auto-restart.service
+
+# Detener el servicio
+systemctl stop auto-restart.service
+sudo systemctl disable programa.service
+
+# Para que no se vuelva a ejecutar al iniciar la maquina se debe eliminar el archivo con 
+sudo rm /etc/systemd/system/auto-restart..service
+sudo systemctl daemon-reload
+
+# Copiar el servicio para que se inicie al principio
+cp auto-restart.service /etc/systemd/system/
