@@ -84,7 +84,7 @@ def get_light_state_from_api():
     # Verificar el horario para encender las luces o apagarlas
 
     if not verificar_horarios(data.get('horarios')):
-        if luces_apagadas:
+        if not luces_apagadas:
             luces_apagadas = True
             print("ApagarLuces")
             off_all_channels()
