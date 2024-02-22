@@ -81,6 +81,7 @@ def get_light_state_from_api():
     else:
         if luces_encendidas:
             luces_encendidas = False
+            guardar_configuracion_luces = None
             print("ApagarLuces")
             off_all_channels()
         return None
