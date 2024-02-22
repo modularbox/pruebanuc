@@ -42,8 +42,10 @@ def ciclo_luces(luces):
 def verificar_hora(hora_inicio, hora_fin, min_inicio, min_fin):
     hora_actual = time.localtime().tm_hour
     min_actual = time.localtime().tm_min
+    print(f"HoraActual: {hora_actual}, MinutoActual: {min_actual}, -  Hora inicio: {hora_inicio}, Minuto inicio: {min_inicio}, - Hora fin: {hora_fin}, Minuto fin: {min_fin}")
     if hora_inicio <= hora_actual <= hora_fin: 
         return min_inicio <= min_actual <= min_fin
+    
 def verificar_horarios(horarios):
     if isinstance(horarios, list):
         for horario in horarios:
