@@ -47,7 +47,7 @@ def verificar_hora(hora_inicio, hora_fin, min_inicio, min_fin):
 def verificar_horarios(horarios):
     if isinstance(horarios, list):
         for horario in horarios:
-            if verificar_hora(horario.get('hora_inicio'), horario.get('min_inicio'), horario.get('hora_fin'), horario.get('min_fin')):
+            if verificar_hora(horario.get('hora_inicio'), horario.get('hora_fin'), horario.get('min_inicio'), horario.get('min_fin')):
                 print(horario.get('hora_inicio')) 
                 print(horario.get('min_inicio')) 
                 print(horario.get('hora_fin')) 
