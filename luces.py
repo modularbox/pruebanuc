@@ -24,7 +24,7 @@ custom_fixture = dmx.add_fixture(Custom,name="CustomFixture", start_channel=1, c
 bsq_fixture_model.setup_fixture(custom_fixture)
 
 guardar_configuracion_luces = None
-luces_encendidas = False
+luces_encendidas = True
 def encender_luz(channel):
     custom_fixture.dim(255, 0, channel - 1)
 def apagar_luz(channel):
@@ -42,18 +42,13 @@ def ciclo_luces(luces):
 def verificar_hora(hora_inicio, hora_fin, min_inicio, min_fin):
     hora_actual = time.localtime().tm_hour
     min_actual = time.localtime().tm_min
-    print(hora_actual)
-    print(min_actual)
     if hora_inicio <= hora_actual <= hora_fin: 
         return min_inicio <= min_actual <= min_fin
 def verificar_horarios(horarios):
     if isinstance(horarios, list):
         for horario in horarios:
             if verificar_hora(horario.get('hora_inicio'), horario.get('hora_fin'), horario.get('min_inicio'), horario.get('min_fin')):
-                print(horario.get('hora_inicio')) 
-                print(horario.get('min_inicio')) 
-                print(horario.get('hora_fin')) 
-                print(horario.get('min_fin'))
+                print("Esta en el horario") 
                 return True
         return False
 # ------------------ Termina la programacion de las luces en horas ------------------
