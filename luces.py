@@ -56,6 +56,7 @@ def get_light_state_from_api():
             print("Es igual")
             return None
         else:
+            guardar_configuracion_luces = luces
             print("ApagarLuces")
             off_all_channels()
     else:
