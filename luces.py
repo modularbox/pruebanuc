@@ -31,30 +31,31 @@ def apagar_luz(channel):
 def ciclo_luces(luces):
     for channel in luces:
         encender_luz(channel)
+
+def get_light_state_from_api():
+    try:
+        response = requests.get("https://api.conectateriolobos.es/luces/ermita")
+    except requests.exceptions.ConnectionError:
+        return None
+
+    # If there is no command, return None
+    if response.status_code != 200:
+        return None
+    data = response.json()
+    if guardar_configuracion == '':
+        guardar_configuracion = data
+    else:
+        if response == guardar_configuracion:
+            return None
+    
+    # If there is a command, return it
+    print(response)
+    print(response.json())
+    luces = Luces(data.get('encender'), data.get('apagar'))
+    return luces
+
 while True:
 
-    def get_light_state_from_api():
-        try:
-            response = requests.get("https://api.conectateriolobos.es/luces/ermita")
-        except requests.exceptions.ConnectionError:
-            return None
-
-        # If there is no command, return None
-        if response.status_code != 200:
-            return None
-        data = response.json()
-        if guardar_configuracion == None:
-            guardar_configuracion = data
-        else:
-            if response == guardar_configuracion:
-                return None
-        
-        # If there is a command, return it
-        print(response)
-        print(response.json())
-        luces = Luces(data.get('encender'), data.get('apagar'))
-        return luces
-    
     if get_light_state_from_api() != None: 
         ciclo_luces(luces.encender)
 
