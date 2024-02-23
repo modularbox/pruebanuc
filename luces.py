@@ -31,31 +31,25 @@ def ciclo_luces(luces):
 # ------------------ Codigo para la programacion de las luces en horas ------------------
         
 # Función que comprueba si la hora actual está dentro del rango especificado
-def verificar_hora(hora_inicio, hora_fin, min_inicio, min_fin):
+def verificar_hora(hora_inicio, hora_fin):
 
     # Obtener la fecha y hora actual
-    fecha_hora_actual = datetime.now()
+    fecha_actual = datetime.now()
+
+    # Convertir la hora específica a un objeto datetime
+    fecha_hora_inicio = datetime.strptime(hora_inicio, "%H:%M:%S")
+    fecha_hora_fin = datetime.strptime(hora_fin, "%H:%M:%S")
 
     # Asignar una hora específica (por ejemplo, 15:30:00)
-    fecha_hora_inicio = fecha_hora_actual.replace(hour=hora_inicio, minute=min_inicio, second=0)
-    fecha_hora_fin = fecha_hora_actual.replace(hour=hora_fin, minute=min_fin, second=0)
-    if fecha_hora_inicio <= fecha_hora_actual <= fecha_hora_fin: 
+    fecha_inicio = fecha_hora_inicio.replace(year=fecha_actual.year, month=fecha_actual.month, day=fecha_actual.day)
+    fecha_fin = fecha_hora_fin.replace(year=fecha_actual.year, month=fecha_actual.month, day=fecha_actual.day)
+    if fecha_inicio <= fecha_actual <= fecha_fin: 
         return True
-    # hora_actual = time.localtime().tm_hour
-    # min_actual = time.localtime().tm_min
-    # print(f"HoraActual: {hora_actual}, MinutoActual: {min_actual}, -  Hora inicio: {hora_inicio}, Minuto inicio: {min_inicio}, - Hora fin: {hora_fin}, Minuto fin: {min_fin}")
-    # print(f"{hora_inicio} <= {hora_actual} <= {hora_fin}")
-    # print(f"{min_inicio} <= {min_actual} <= {min_fin}")
-    # if hora_inicio <= hora_actual <= hora_fin: 
-    #     if min_actual < min_fin:
-    #         return True
-    #     else:
-    #         return min_inicio <= min_actual
     
 def verificar_horarios(horarios):
     if isinstance(horarios, list):
         for horario in horarios:
-            if verificar_hora(horario.get('hora_inicio'), horario.get('hora_fin'), horario.get('min_inicio'), horario.get('min_fin')):
+            if verificar_hora(horario.get('horario_inicio'), horario.get('horario_fin')):
                 print("Esta en el horario") 
                 return True
         return False
