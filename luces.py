@@ -79,9 +79,7 @@ def get_light_state_from_api():
     # Encender las luces
     luces = Luces(data.get('encender'), data.get('apagar'))
     if isinstance(guardar_configuracion_luces, Luces): 
-        if luces.encender == guardar_configuracion_luces.encender:
-            return None
-        else:
+        if luces.encender != guardar_configuracion_luces.encender:
             luces_encendidas = False 
             guardar_configuracion_luces = luces
     else:
