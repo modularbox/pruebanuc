@@ -1,3 +1,4 @@
+import datetime
 import time 
 import requests
 from PyDMXControl.controllers import OpenDMXController
@@ -31,16 +32,25 @@ def ciclo_luces(luces):
         
 # Función que comprueba si la hora actual está dentro del rango especificado
 def verificar_hora(hora_inicio, hora_fin, min_inicio, min_fin):
-    hora_actual = time.localtime().tm_hour
-    min_actual = time.localtime().tm_min
-    print(f"HoraActual: {hora_actual}, MinutoActual: {min_actual}, -  Hora inicio: {hora_inicio}, Minuto inicio: {min_inicio}, - Hora fin: {hora_fin}, Minuto fin: {min_fin}")
-    print(f"{hora_inicio} <= {hora_actual} <= {hora_fin}")
-    print(f"{min_inicio} <= {min_actual} <= {min_fin}")
-    if hora_inicio <= hora_actual <= hora_fin: 
-        if min_actual < min_fin:
-            return True
-        else:
-            return min_inicio <= min_actual
+
+    # Obtener la fecha y hora actual
+    fecha_hora_actual = datetime.now()
+
+    # Asignar una hora específica (por ejemplo, 15:30:00)
+    fecha_hora_inicio = fecha_hora_actual.replace(hour=hora_inicio, minute=min_inicio, second=0)
+    fecha_hora_fin = fecha_hora_actual.replace(hour=hora_fin, minute=min_fin, second=0)
+    if fecha_hora_inicio <= fecha_hora_actual <= fecha_hora_fin: 
+        return True
+    # hora_actual = time.localtime().tm_hour
+    # min_actual = time.localtime().tm_min
+    # print(f"HoraActual: {hora_actual}, MinutoActual: {min_actual}, -  Hora inicio: {hora_inicio}, Minuto inicio: {min_inicio}, - Hora fin: {hora_fin}, Minuto fin: {min_fin}")
+    # print(f"{hora_inicio} <= {hora_actual} <= {hora_fin}")
+    # print(f"{min_inicio} <= {min_actual} <= {min_fin}")
+    # if hora_inicio <= hora_actual <= hora_fin: 
+    #     if min_actual < min_fin:
+    #         return True
+    #     else:
+    #         return min_inicio <= min_actual
     
 def verificar_horarios(horarios):
     if isinstance(horarios, list):
