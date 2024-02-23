@@ -37,7 +37,10 @@ def verificar_hora(hora_inicio, hora_fin, min_inicio, min_fin):
     print(f"{hora_inicio} <= {hora_actual} <= {hora_fin}")
     print(f"{min_inicio} <= {min_actual} <= {min_fin}")
     if hora_inicio <= hora_actual <= hora_fin: 
-        return min_inicio <= min_actual <= min_fin
+        if min_inicio <= min_actual:
+            return True
+        else:
+            return min_actual <= min_fin
     
 def verificar_horarios(horarios):
     if isinstance(horarios, list):
