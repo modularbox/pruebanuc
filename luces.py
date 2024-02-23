@@ -7,15 +7,6 @@ from leer_json import cargar_luces_desde_json
 from luces_json import Luces
 import sys
 # Cargar luces desde JSON
-# luces = cargar_luces_desde_json()
-
-# Ejemplo de uso
-# if luces is not None:
-#     print("Encender:", luces.encender)
-#     print("Apagar:", luces.apagar)
-# else:
-#     print("No se pudieron cargar las luces desde el JSON.")
-
 # ------------------ Todo el codigo de las luces ------------------
 dmx = OpenDMXController()
 # Big square fixture model
@@ -43,6 +34,8 @@ def verificar_hora(hora_inicio, hora_fin, min_inicio, min_fin):
     hora_actual = time.localtime().tm_hour
     min_actual = time.localtime().tm_min
     print(f"HoraActual: {hora_actual}, MinutoActual: {min_actual}, -  Hora inicio: {hora_inicio}, Minuto inicio: {min_inicio}, - Hora fin: {hora_fin}, Minuto fin: {min_fin}")
+    print(f"{hora_inicio} <= {hora_actual} <= {hora_fin}")
+    print(f"{min_inicio} <= {min_actual} <= {min_fin}")
     if hora_inicio <= hora_actual <= hora_fin: 
         return min_inicio <= min_actual <= min_fin
     

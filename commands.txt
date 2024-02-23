@@ -23,6 +23,20 @@ kill
 // }
 curl -X POST -H "Content-Type: application/json" -d '{"encender": [],"apagar": []}' https://api.conectateriolobos.es/luces/ermita
 
-curl -X POST -H "Content-Type: application/json" -d '{"encender": [1,2,12,21,22,31,32,41,51],"apagar": [], "horarios": [{"horario_inicio": "00:11:00","horario_fin": "00:12:00"},{"horario_inicio": "00:14:00","horario_fin": "00:15:00"}]}' https://api.conectateriolobos.es/luces/ermita
+curl -X POST -H "Content-Type: application/json" -d '{"encender": [4,5,10,15,20],"apagar": [], "horarios": [{"horario_inicio": "13:50:00","horario_fin": "14:45:00"},{"horario_inicio": "00:27:00","horario_fin": "00:28:00"}]}' https://api.conectateriolobos.es/luces/ermita
+curl -X POST -H "Content-Type: application/json" -d '{"encender": [4,6,11,16,21],"apagar": [], "horarios": [{"horario_inicio": "13:50:00","horario_fin": "14:45:00"},{"horario_inicio": "00:27:00","horario_fin": "00:28:00"}]}' https://api.conectateriolobos.es/luces/ermita
+curl -X POST -H "Content-Type: application/json" -d '{"encender": [4,7,12,17,22],"apagar": [], "horarios": [{"horario_inicio": "13:50:00","horario_fin": "14:45:00"},{"horario_inicio": "00:27:00","horario_fin": "00:28:00"}]}' https://api.conectateriolobos.es/luces/ermita
+curl -X POST -H "Content-Type: application/json" -d '{"encender": [4,8,13,18,23],"apagar": [], "horarios": [{"horario_inicio": "13:50:00","horario_fin": "14:45:00"},{"horario_inicio": "00:27:00","horario_fin": "00:28:00"}]}' https://api.conectateriolobos.es/luces/ermita
+curl -X POST -H "Content-Type: application/json" -d '{"encender": [4,9,14,19,24],"apagar": [], "horarios": [{"horario_inicio": "13:50:00","horario_fin": "14:45:00"},{"horario_inicio": "00:27:00","horario_fin": "00:28:00"}]}' https://api.conectateriolobos.es/luces/ermita
+curl -X POST -H "Content-Type: application/json" -d '{"encender": [1,2,3,4,9,14,19,24],"apagar": [], "horarios": [{"horario_inicio": "13:50:00","horario_fin": "14:45:00"},{"horario_inicio": "00:27:00","horario_fin": "00:28:00"}]}' https://api.conectateriolobos.es/luces/ermita
+curl -X POST -H "Content-Type: application/json" -d '{"encender": [1,2,3,4,9,14,19,24],"apagar": [], "horarios": [{"horario_inicio": "13:50:00","horario_fin": "14:45:00"},{"horario_inicio": "00:27:00","horario_fin": "00:28:00"}]}' https://api.conectateriolobos.es/luces/ermita
+
+curl -X POST -H "Content-Type: application/json" -d '{"encender": [1,2,9,10,17,18,41,45,49],"apagar": [], "horarios": [{"horario_inicio": "13:50:00","horario_fin": "14:45:00"},{"horario_inicio": "00:27:00","horario_fin": "00:28:00"}]}' https://api.conectateriolobos.es/luces/ermita
+curl -X POST -H "Content-Type: application/json" -d '{"encender": [1,3,9,11,17,19,42,46,50,54],"apagar": [], "horarios": [{"horario_inicio": "13:50:00","horario_fin": "14:45:00"},{"horario_inicio": "00:27:00","horario_fin": "00:28:00"}]}' https://api.conectateriolobos.es/luces/ermita
+curl -X POST -H "Content-Type: application/json" -d '{"encender": [1,4,9,12,17,20,43,47,51,55],"apagar": [], "horarios": [{"horario_inicio": "13:50:00","horario_fin": "14:45:00"},{"horario_inicio": "00:27:00","horario_fin": "00:28:00"}]}' https://api.conectateriolobos.es/luces/ermita
+curl -X POST -H "Content-Type: application/json" -d '{"encender": [1,5,9,13,17,21,44,48,52,56],"apagar": [], "horarios": [{"horario_inicio": "13:50:00","horario_fin": "14:45:00"},{"horario_inicio": "00:27:00","horario_fin": "00:28:00"}]}' https://api.conectateriolobos.es/luces/ermita
+
+
+curl -X POST -H "Content-Type: application/json" -d '{"encender": [1,2,11,21,22,31,32,61],"apagar": [], "horarios": [{"horario_inicio": "18:00:00","horario_fin": "19:00:00"},{"horario_inicio": "00:27:00","horario_fin": "00:28:00"}]}' https://api.conectateriolobos.es/luces/modularbox
 
 horario
