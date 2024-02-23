@@ -37,7 +37,7 @@ def verificar_hora(hora_inicio, hora_fin):
     fecha_actual = datetime.now()
 
     # fecha_actual fecha_actual.replace()
-    fecha_actual = fecha_actual + timedelta( minutes=56, seconds=10)
+    fecha_actual = fecha_actual + timedelta( minutes=58, seconds=10)
     print(fecha_actual)
     # Convertir la hora específica a un objeto datetime
     fecha_hora_inicio = datetime.strptime(hora_inicio, "%H:%M:%S")
