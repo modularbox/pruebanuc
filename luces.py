@@ -46,7 +46,8 @@ def verificar_hora(hora_inicio, hora_fin):
     # Asignar una hora específica (por ejemplo, 15:30:00)
     fecha_inicio = fecha_hora_inicio.replace(year=fecha_actual.year, month=fecha_actual.month, day=fecha_actual.day)
     fecha_fin = fecha_hora_fin.replace(year=fecha_actual.year, month=fecha_actual.month, day=fecha_actual.day)
-    if fecha_fin.hour == 23 and fecha_fin.min == 59:
+    print(f'{fecha_actual.hour} == 23 and {fecha_actual.min} ')
+    if fecha_actual.hour == 23 and fecha_actual.min == 59:
         return True
     if fecha_inicio <= fecha_actual <= fecha_fin: 
         return True
