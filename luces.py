@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 import time 
 import requests
 from PyDMXControl.controllers import OpenDMXController
@@ -36,6 +36,9 @@ def verificar_hora(hora_inicio, hora_fin):
     # Obtener la fecha y hora actual
     fecha_actual = datetime.now()
 
+    # fecha_actual fecha_actual.replace()
+    fecha_actual = fecha_actual + timedelta( hours=1, minutes=2, seconds=10)
+    print(fecha_actual)
     # Convertir la hora específica a un objeto datetime
     fecha_hora_inicio = datetime.strptime(hora_inicio, "%H:%M:%S")
     fecha_hora_fin = datetime.strptime(hora_fin, "%H:%M:%S")
@@ -43,8 +46,11 @@ def verificar_hora(hora_inicio, hora_fin):
     # Asignar una hora específica (por ejemplo, 15:30:00)
     fecha_inicio = fecha_hora_inicio.replace(year=fecha_actual.year, month=fecha_actual.month, day=fecha_actual.day)
     fecha_fin = fecha_hora_fin.replace(year=fecha_actual.year, month=fecha_actual.month, day=fecha_actual.day)
+    if fecha_fin.hour == 23 and fecha_fin.min == 59:
+        return True
     if fecha_inicio <= fecha_actual <= fecha_fin: 
         return True
+
     
 def verificar_horarios(horarios):
     if isinstance(horarios, list):
