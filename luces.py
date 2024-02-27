@@ -36,9 +36,6 @@ def verificar_hora(hora_inicio, hora_fin):
     # Obtener la fecha y hora actual
     fecha_actual = datetime.now()
 
-    # fecha_actual fecha_actual.replace()
-    # fecha_actual = fecha_actual + timedelta( minutes=49, seconds=10)
-    # print(fecha_actual)
     # Convertir la hora específica a un objeto datetime
     fecha_hora_inicio = datetime.strptime(hora_inicio, "%H:%M:%S")
     fecha_hora_fin = datetime.strptime(hora_fin, "%H:%M:%S")
@@ -46,9 +43,6 @@ def verificar_hora(hora_inicio, hora_fin):
     # Asignar una hora específica (por ejemplo, 15:30:00)
     fecha_inicio = fecha_hora_inicio.replace(year=fecha_actual.year, month=fecha_actual.month, day=fecha_actual.day)
     fecha_fin = fecha_hora_fin.replace(year=fecha_actual.year, month=fecha_actual.month, day=fecha_actual.day)
-    print(fecha_actual.hour)
-    print(fecha_actual.minute)
-    print(f'{fecha_actual.hour} == 23 and {fecha_actual.minute}  == 59' )
     if fecha_actual.hour == 23 and fecha_actual.minute == 59:
         return True
     if fecha_inicio <= fecha_actual <= fecha_fin: 
@@ -85,6 +79,11 @@ def get_light_state_from_api():
     
     # Datos de la api
     data = response.json()
+
+    # # Existe el cliente
+    # if data.get('cliente') != None:
+    #     print("Si existe")
+
     # Encender las luces
     luces = Luces(data.get('encender'), data.get('apagar'))
     if isinstance(guardar_configuracion_luces, Luces): 
