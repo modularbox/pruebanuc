@@ -80,9 +80,12 @@ def get_light_state_from_api():
     # Datos de la api
     data = response.json()
 
-    # # Existe el cliente
-    # if data.get('cliente') != None:
-    #     print("Si existe")
+    # Existe el cliente
+    if data.get('cliente') != None:
+        luces = Luces(data.get('encender'), [])
+        print("Si existe")
+        time.sleep(60)
+        
 
     # Encender las luces
     luces = Luces(data.get('encender'), data.get('apagar'))
