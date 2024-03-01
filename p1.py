@@ -49,6 +49,6 @@ if __name__ == "__main__":
 
     # thread_programa_continuo = threading.Thread(target=programa_continuo_function)
     # thread_programa_continuo.start()
-    sio.wait()
+    # sio.wait()
     # thread_programa_por_tiempo = threading.Thread(target=programa_por_tiempo_function)
     # thread_programa_por_tiempo.start()
