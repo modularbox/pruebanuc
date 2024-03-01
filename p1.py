@@ -28,9 +28,12 @@ def connect():
 def mensaje(data):
     print('Mensaje del servidor programa_continuo luces:', data)
 
-@sio.event
-def programacontinuo(data):
-    print('Mensaje del servidor programa_continuo luces:', data)
+@sio.on('programacontinuo')
+def on_programacontinuo(data):
+    print('I received a message!', data)
+# @sio.event
+# def programacontinuo(data):
+#     print('Mensaje del servidor programa_continuo luces:', data)
 
 @sio.event
 def programaportiempo(data):
