@@ -21,7 +21,7 @@ def programa_por_tiempo_function():
         time.sleep(300)  # 5 minutos de espera
 
 @sio.event
-def connect():
+async def connect():
     print('Conectado al servidor')
     sio.emit('mensaje', 'Hola desde Python')
 
@@ -42,13 +42,17 @@ async def on_programacontinuo(data):
     print('Mensaje del servidor programa_por_tiempo luces:', data)
 
 @sio.event
-def disconnect():
+async def disconnect():
     print('Desconectado del servidor')
 
 async def main():
     await sio.connect('http://192.168.1.136:3005')
 
-if __name__ == "__main__":
+    # Mantener un bucle infinito para recibir mensajes continuamente
+    while True:
+        await asyncio.sleep(1)  # Esperar un poco antes de continuar
+
+if __name__ == '__main__':
     asyncio.run(main())
 
     # thread_programa_continuo = threading.Thread(target=programa_continuo_function)
