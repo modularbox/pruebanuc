@@ -2,7 +2,7 @@ import socketio
 import threading
 import time
 # Llamada a los sockets
-sio = socketio.Client(logger=True, engineio_logger=True)
+sio = socketio.AsyncClient(logger=True, engineio_logger=True)
 # Programas corriendo
 programa_continuo_running = False
 programa_por_tiempo_running = False
@@ -24,20 +24,20 @@ def connect():
     print('Conectado al servidor')
     sio.emit('mensaje', 'Hola desde Python')
 
-@sio.event
-def mensaje(data):
+@sio.on('mensaje')
+async def on_mensaje(data):
     print('Mensaje del servidor programa_continuo luces:', data)
 
 @sio.on('programacontinuo')
-def on_programacontinuo(data):
+async def on_programacontinuo(data):
     print("Dsjfnkjsdnfkdmfsklm")
     print('I received a message!', data)
 # @sio.event
 # def programacontinuo(data):
 #     print('Mensaje del servidor programa_continuo luces:', data)
 
-@sio.event
-def programaportiempo(data):
+@sio.on('programaportiempo')
+async def on_programacontinuo(data):
     print('Mensaje del servidor programa_por_tiempo luces:', data)
 
 @sio.event
