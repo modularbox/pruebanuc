@@ -30,6 +30,7 @@ def mensaje(data):
 
 @sio.on('programacontinuo')
 def on_programacontinuo(data):
+    print("Dsjfnkjsdnfkdmfsklm")
     print('I received a message!', data)
 # @sio.event
 # def programacontinuo(data):
