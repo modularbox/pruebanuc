@@ -1,3 +1,4 @@
+import asyncio
 import socketio
 import threading
 import time
@@ -46,8 +47,10 @@ def disconnect():
 
 async def main():
     await sio.connect('http://192.168.1.136:3005', wait_timeout=10)
+    await asyncio.gather(programa_continuo_function(), programa_por_tiempo_function())
+
 if __name__ == "__main__":
-    main()
+    asyncio.run(main())
 
     # thread_programa_continuo = threading.Thread(target=programa_continuo_function)
     # thread_programa_continuo.start()
