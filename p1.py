@@ -22,7 +22,11 @@ def programa_por_tiempo_function():
 @sio.event
 def connect():
     print('Conectado al servidor')
-    sio.emit('message', 'Hola desde Python')
+    sio.emit('mensaje', 'Hola desde Python')
+
+@sio.event
+def mensaje(data):
+    print('Mensaje del servidor programa_continuo luces:', data)
 
 @sio.event
 def programacontinuo(data):
