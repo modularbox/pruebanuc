@@ -44,8 +44,10 @@ async def on_programacontinuo(data):
 def disconnect():
     print('Desconectado del servidor')
 
+async def main():
+    await sio.connect('http://192.168.1.136:3005', wait_timeout=10)
 if __name__ == "__main__":
-    sio.connect('http://192.168.1.136:3005', wait_timeout=10)
+    main()
 
     # thread_programa_continuo = threading.Thread(target=programa_continuo_function)
     # thread_programa_continuo.start()
