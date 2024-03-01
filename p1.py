@@ -2,7 +2,7 @@ import socketio
 import threading
 import time
 # Llamada a los sockets
-sio = socketio.Client()
+sio = socketio.SimpleClient()
 # Programas corriendo
 programa_continuo_running = False
 programa_por_tiempo_running = False
