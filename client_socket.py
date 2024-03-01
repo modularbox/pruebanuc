@@ -15,6 +15,6 @@ def encender(data):
 def disconnect():
     print('Desconectado del servidor')
 
-sio.connect('https://api.conectateriolobos.es:3005', wait_timeout=10)
+sio.connect('http://192.168.1.136:3005', wait_timeout=10)
 # sio.connect('http://192.168.1.136:3001', wait_timeout=10)
 sio.wait()
