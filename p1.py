@@ -46,8 +46,7 @@ def disconnect():
     print('Desconectado del servidor')
 
 async def main():
-    await sio.connect('http://192.168.1.136:3005', wait_timeout=10)
-    await asyncio.gather(programa_continuo_function(), programa_por_tiempo_function())
+    await sio.connect('http://192.168.1.136:3005')
 
 if __name__ == "__main__":
     asyncio.run(main())
