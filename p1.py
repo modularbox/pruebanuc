@@ -36,7 +36,7 @@ async def on_programacontinuo(data):
 # def programacontinuo(data):
 #     print('Mensaje del servidor programa_continuo luces:', data)
 
-@sio.on('programaportiempo')
+@sio.on('programaportiempo2')
 async def on_programacontinuo(data):
     print('Mensaje del servidor programa_por_tiempo luces:', data)
 
