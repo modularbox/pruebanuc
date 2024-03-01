@@ -25,11 +25,11 @@ def connect():
     sio.emit('message', 'Hola desde Python')
 
 @sio.event
-def programa_continuo(data):
+def programacontinuo(data):
     print('Mensaje del servidor programa_continuo luces:', data)
 
 @sio.event
-def programa_por_tiempo(data):
+def programaportiempo(data):
     print('Mensaje del servidor programa_por_tiempo luces:', data)
 
 @sio.event
