@@ -10,8 +10,9 @@ def connect():
 @sio.event
 def encender(data):
     print('Mensaje del servidor Encender luces:', data)
+
 @sio.event
-def mensaje(data):
+def ermita(data):
     print('Mensaje del servidodskjbfjisdbjsbdjkbkjfdbskj luces:', data)
 
 @sio.event
