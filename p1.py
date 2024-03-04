@@ -56,9 +56,10 @@ def programa_ejecucion(request):
             t_programa = iniciar_programa(ejecutar_programa)
             print("Peiridankjdnjn")
         else:
-            t_programa.cancel()
+            thread_programa_por_tiempo = False
+            print(t_programa.cancel())
             luces_sockets.off_all_channels()
-            thread_programa = True
+            thread_programa_por_tiempo = True
             t_programa = iniciar_programa(ejecutar_programa)
     
 # Función para programar la ejecución del programa después de 10 segundos
@@ -71,12 +72,14 @@ def programa_por_tiempo_ejecucion(request):
     request_programa_por_tiempo = request
     if thread_programa:
         thread_programa = False 
-        t_programa.cancel()
+        print(t_programa.cancel())
     # Ejecutamos el programa en el tiempo especifico   
     if not thread_programa_por_tiempo:
         luces_sockets.off_all_channels()
+        thread_programa_por_tiempo = True
         t_programa_por_tiempo = iniciar_programa(ejecutar_programa_por_tiempo)
         time.sleep(request.get('time'))
+        thread_programa_por_tiempo = False
         t_programa_por_tiempo.cancel()
         luces_sockets.off_all_channels()
         thread_programa = True 
