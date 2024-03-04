@@ -22,6 +22,7 @@ def encender_luz(channel):
 def apagar_luz(channel):
     custom_fixture.dim(0, 0, channel - 1)
 def off_all_channels():
+    print("Apgar todos los canales s")
     for i in range(500):
         custom_fixture.dim(0, 0, i)
 def ciclo_luces(luces):
@@ -40,7 +41,6 @@ def programa_por_tiempo(data):
     else:
         guardar_configuracion_luces = luces
     ciclo_luces(luces.encender)
-    time.sleep(data.get('time'))
 
 # Función que comprueba si la hora actual está dentro del rango especificado
 def verificar_hora(hora_inicio, hora_fin):
@@ -111,16 +111,14 @@ def get_light_state_from_api(data):
     # Verificar el horario para encender las luces o apagarlas
     if verificar_horarios(data.get('horarios')):
         if not luces_encendidas:
-            print("ApagarLuces")
             off_all_channels()
         luces_encendidas = True 
     else:
         if luces_encendidas:
             luces_encendidas = False
-            guardar_configuracion_luces = None
-            print("ApagarLuces")
             off_all_channels()
         return None
+    
     # Guardar las luces
     luces = Luces(data.get('encender'), data.get('apagar'))
     return luces
