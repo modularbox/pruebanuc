@@ -12,9 +12,6 @@ thread_programa_por_tiempo = False
 # La respuesta de cada socket
 request_programa = {}
 request_programa_por_tiempo = {}
-# Variables para iniciar un thearing 
-t_programa = None
-t_programa_por_tiempo = None
 # Obtener el primer argumento que sera el lugar donde estara la nuc
 # Example: Correr programa python3 luces.py lugar
 lugar = 'garaje'
@@ -50,7 +47,7 @@ def programa_por_tiempo_ejecucion(request):
     request_programa_por_tiempo = request
     if thread_programa:
         thread_programa = False
-    t_programa.join()
+        t_programa.join()
     # Ejecutamos el programa en el tiempo especifico   
     if not thread_programa_por_tiempo:
         luces_sockets.off_all_channels()
@@ -61,7 +58,7 @@ def programa_por_tiempo_ejecucion(request):
         luces_sockets.off_all_channels()
         thread_programa = True
         t_programa.start()
-    
+   
 # Ejecutar el programa
 def ejecutar_programa():
     global thread_programa
@@ -81,6 +78,11 @@ def ejecutar_programa_por_tiempo():
         luces_sockets.programa_por_tiempo(request_programa_por_tiempo)
         time.sleep(2)
 
+# Iniciar los hilos con programa por tiempo, y programa
+t_programa = threading.Thread(target=ejecutar_programa())
+t_programa_por_tiempo = threading.Thread(target=ejecutar_programa_por_tiempo())
+
+# Funcion de los sockets
 @sio.event
 def connect():
     print('connection established')
@@ -98,12 +100,6 @@ def disconnect():
     print('disconnected from server')
 
 if __name__ == "__main__":
-    # Iniciar los hilos con programa por tiempo, y programa
-    t_programa = threading.Thread(target=ejecutar_programa())
-    t_programa.start()
-    t_programa_por_tiempo = threading.Thread(target=ejecutar_programa_por_tiempo())
-    t_programa_por_tiempo.start()
-
     # Iniciar los sockets
     sio.connect('http://192.168.1.136:3005')
     sio.wait()
