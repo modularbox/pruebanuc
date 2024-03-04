@@ -90,6 +90,7 @@ def iniciar_programa(funcion):
     print("Iniciando programa...")
     # Iniciar el programa utilizando el executor
     theared = threading.Thread(target=funcion)
+    theared.start()
     return theared
 
 # Iniciar los hilos con programa por tiempo, y programa
