@@ -76,6 +76,7 @@ def programa_por_tiempo_ejecucion(request):
         t_programa.join()
     # Ejecutamos el programa en el tiempo especifico   
     if not thread_programa_por_tiempo:
+        luces_sockets.guardar_configuracion_luces = None
         luces_sockets.off_all_channels()
         thread_programa_por_tiempo = True
         t_programa_por_tiempo = iniciar_programa(ejecutar_programa_por_tiempo)
