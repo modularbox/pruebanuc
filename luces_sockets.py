@@ -114,13 +114,12 @@ def get_light_state_from_api(data):
     luces = Luces(data.get('encender'), data.get('apagar'))
     return luces
 def init_luces(response):
-    # while True:
-    luces = get_light_state_from_api(response)
-    # print(luces)
-    if luces != None: 
-        ciclo_luces(luces.encender)
-
-        # time.sleep(4)
+    while True:
+        luces = get_light_state_from_api(response)
+        # print(luces)
+        if luces != None: 
+            ciclo_luces(luces.encender)
+            time.sleep(2)
 print("LucesTermino")
 """
  FT232R USB UART:
