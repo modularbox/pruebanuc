@@ -1,14 +1,29 @@
 
+import threading
+import time
 import socketio
 import sys
+import luces_sockets
 sio = socketio.Client()
 
+thread_programa = None
 # Obtener el primer argumento que sera el lugar donde estara la nuc
 # Example: Correr programa python3 luces.py lugar
-lugar = 'garage'
+lugar = 'garaje'
 if len(sys.argv) > 1:
     lugar = sys.argv[1]
     print("El valor del parámetro es:", lugar)
+#
+def ejecutar_programa(res):
+    luces_sockets.init_luces(res)
+    
+
+# Función para programar la ejecución del programa después de 10 segundos
+def programar_ejecucion(res):
+    global thread_programa
+    t = threading.Timer(2, ejecutar_programa(res))
+    t.start()
+    thread_programa = t
 
 @sio.event
 def connect():
@@ -16,7 +31,7 @@ def connect():
 
 @sio.on('programa' + lugar)
 def programa(data):
-    print('message received with ', data)
+    programar_ejecucion(data.json())
 
 @sio.on('programa_por_tiempo' + lugar)
 def programa_por_tiempo(data):

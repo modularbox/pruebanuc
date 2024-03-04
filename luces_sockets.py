@@ -58,24 +58,24 @@ def verificar_horarios(horarios):
         return False
 # ------------------ Termina la programacion de las luces en horas ------------------
 
-def get_light_state_from_api():
+def get_light_state_from_api(response):
     global guardar_configuracion_luces
     global luces_encendidas
-    try:
+    # try:
 
-        # Obtener el primer argumento de la línea de comandos
-        parametro = 'ermita'
-        if len(sys.argv) > 1:
-            parametro = sys.argv[1]
-            print("El valor del parámetro es:", parametro)
+    #     # Obtener el primer argumento de la línea de comandos
+    #     parametro = 'ermita'
+    #     if len(sys.argv) > 1:
+    #         parametro = sys.argv[1]
+    #         print("El valor del parámetro es:", parametro)
 
-        response = requests.get(f"https://api.conectateriolobos.es/luces/{parametro}")
-    except requests.exceptions.ConnectionError:
-        return None
+    #     response = requests.get(f"https://api.conectateriolobos.es/luces/{parametro}")
+    # except requests.exceptions.ConnectionError:
+    #     return None
 
-    # If there is no command, return None
-    if response.status_code != 200:
-        return None
+    # # If there is no command, return None
+    # if response.status_code != 200:
+    #     return None
     
     # Datos de la api
     data = response.json()
@@ -109,15 +109,14 @@ def get_light_state_from_api():
             off_all_channels()
         return None
     return luces
+def init_luces(response):
+    while True:
+        luces = get_light_state_from_api(response)
+        print(luces)
+        if luces != None: 
+            ciclo_luces(luces.encender)
 
-
-while True:
-    luces = get_light_state_from_api()
-    print(luces)
-    if luces != None: 
-        ciclo_luces(luces.encender)
-
-    time.sleep(4)
+        time.sleep(4)
 print("LucesTermino")
 """
  FT232R USB UART:

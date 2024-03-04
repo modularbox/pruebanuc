@@ -64,4 +64,7 @@ curl -X POST -H "Content-Type: application/json" -d '{"encender": [51,59,67,75,8
 curl -X POST -H "Content-Type: application/json" -d '{"encender": [74],"apagar": [], "horarios": [{"horario_inicio": "00:00:00","horario_fin": "23:59:00"},{"horario_inicio": "00:27:00","horario_fin": "00:28:00"}]}' https://api.conectateriolobos.es/luces/campanario
 
 curl -X POST -H "Content-Type: application/json" -d '{"id": "sdjhbdshj"}' https://api.conectateriolobos.es/luces/id
+
+curl -X POST -H "Content-Type: application/json" -d '{"encender": [51,59,67,75,83,91,99], "horarios": [{"horario_inicio": "00:00:00","horario_fin": "23:59:00"},{"horario_inicio": "00:27:00","horario_fin": "00:28:00"}]}' http://localhost:3000/luces/modularbox/garaje/programa
+
 horario
