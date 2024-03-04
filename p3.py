@@ -94,18 +94,19 @@ def programa_ejecucion(request):
     request_programa = request
     print(thread_programa_por_tiempo)
     print(thread_programa)
-    if not thread_programa_por_tiempo:
-        if not thread_programa:
-            luces_sockets.off_all_channels()
-            thread_programa = True
-            t_programa = iniciar_programa(ejecutar_programa)
-            print("Peiridankjdnjn")
-        else:
-            print("Llego una nueva configuracion")
-            stop_event(t_programa, theared_program)
-            luces_sockets.off_all_channels()
-            thread_programa_por_tiempo = True
-            t_programa = iniciar_programa(ejecutar_programa)
+    stop_event(t_programa, theared_program)
+    # if not thread_programa_por_tiempo:
+    #     if not thread_programa:
+    luces_sockets.off_all_channels()
+    thread_programa = True
+    t_programa = iniciar_programa(ejecutar_programa)
+        #     print("Peiridankjdnjn")
+        # else:
+        #     print("Llego una nueva configuracion")
+        #     stop_event(t_programa, theared_program)
+        #     luces_sockets.off_all_channels()
+        #     thread_programa_por_tiempo = True
+        #     t_programa = iniciar_programa(ejecutar_programa)
     
 # Función para programar la ejecución del programa después de 10 segundos
 def programa_por_tiempo_ejecucion(request):
@@ -115,23 +116,23 @@ def programa_por_tiempo_ejecucion(request):
     global t_programa
     global t_programa_por_tiempo
     request_programa_por_tiempo = request
-    if thread_programa:
-        thread_programa = False 
+    # if thread_programa:
+    #     thread_programa = False 
         # t_programa.join()
-        stop_event(t_programa, theared_program)
+    stop_event(t_programa, theared_program)
     # Ejecutamos el programa en el tiempo especifico   
-    if not thread_programa_por_tiempo:
-        luces_sockets.guardar_configuracion_luces = None
-        luces_sockets.off_all_channels()
-        thread_programa_por_tiempo = True
-        t_programa_por_tiempo = iniciar_programa(ejecutar_programa_por_tiempo)
-        time.sleep(request.get('time'))
-        print("Termino el tiempo")
-        thread_programa_por_tiempo = False
-        stop_event(t_programa_por_tiempo, theared_program)
-        luces_sockets.off_all_channels()
-        thread_programa = True 
-        t_programa = iniciar_programa(ejecutar_programa)
+    # if not thread_programa_por_tiempo:
+    luces_sockets.guardar_configuracion_luces = None
+    luces_sockets.off_all_channels()
+    thread_programa_por_tiempo = True
+    t_programa = iniciar_programa(ejecutar_programa_por_tiempo)
+    time.sleep(request.get('time'))
+    print("Termino el tiempo")
+    thread_programa_por_tiempo = False
+    stop_event(t_programa, theared_program)
+    luces_sockets.off_all_channels()
+    thread_programa = True 
+    t_programa = iniciar_programa(ejecutar_programa)
    
 # Función para iniciar el programa
 def iniciar_programa(funcion):
