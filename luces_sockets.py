@@ -19,6 +19,8 @@ guardar_configuracion_luces = None
 luces_encendidas = False
 def encender_luz(channel):
     custom_fixture.dim(255, 0, channel - 1)
+def encender_con_value_luz(value, channel):
+    custom_fixture.dim(value, 0, channel - 1)
 def apagar_luz(channel):
     custom_fixture.dim(0, 0, channel - 1)
 def off_all_channels():
@@ -27,7 +29,10 @@ def off_all_channels():
         custom_fixture.dim(0, 0, i)
 def ciclo_luces(luces):
     for channel in luces:
-        encender_luz(channel)
+        if isinstance(channel, list):
+            encender_con_value_luz(channel[1], channel[0])
+        else:
+            encender_luz(channel)
 # ------------------ Aqui termina el codigo ------------------
 # ------------------ Codigo para la programacion de las luces en horas ------------------
         

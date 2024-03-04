@@ -96,14 +96,6 @@ def iniciar_programa(funcion):
     theared.start()
     return theared
 
-# Iniciar los hilos con programa por tiempo, y programa
-# t_programa = threading.Thread(target=ejecutar_programa)
-# Iniciar el programa utilizando el executor
-# t_programa = iniciar_programa(ejecutar_programa)
-# t_programa_por_tiempo = threading.Thread(target=ejecutar_programa_por_tiempo)
-# Iniciar el programa utilizando el executor
-# t_programa_por_tiempo = iniciar_programa(ejecutar_programa_por_tiempo)
-
 # Funcion de los sockets
 @sio.event
 def connect():
