@@ -79,6 +79,7 @@ def programa_por_tiempo_ejecucion(request):
         time.sleep(request.get('time'))
         t_programa_por_tiempo.cancel()
         luces_sockets.off_all_channels()
+        thread_programa = True
         t_programa = iniciar_programa(ejecutar_programa)
    
 # Función para iniciar el programa
