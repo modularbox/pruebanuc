@@ -13,7 +13,7 @@ def on_reconnect():
 def on_aaa_response(*args):
     print('on_aaa_response', args)
 
-socketIO = SocketIO('localhost', 8000, LoggingNamespace)
+socketIO = SocketIO('192.168.1.136', 3005, LoggingNamespace)
 socketIO.on('connect', on_connect)
 socketIO.on('disconnect', on_disconnect)
 socketIO.on('reconnect', on_reconnect)
