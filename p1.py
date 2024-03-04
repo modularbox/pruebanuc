@@ -1,36 +1,24 @@
+import asyncio
+import socketio
 
-from socketIO_client import SocketIO, LoggingNamespace
+sio = socketio.AsyncClient()
 
-def on_connect():
-    print('connect')
+@sio.event
+async def connect():
+    print('connection established')
 
-def on_disconnect():
-    print('disconnect')
+@sio.event
+async def ermita(data):
+    print('message received with ', data)
+    await sio.emit('my response', {'response': 'my response'})
 
-def on_reconnect():
-    print('reconnect')
+@sio.event
+async def disconnect():
+    print('disconnected from server')
 
-def on_aaa_response(*args):
-    print('on_aaa_response', args)
+async def main():
+    await sio.connect('http://localhost:5000')
+    await sio.wait()
 
-socketIO = SocketIO('192.168.1.136', 3005, LoggingNamespace)
-socketIO.on('connect', on_connect)
-socketIO.on('disconnect', on_disconnect)
-socketIO.on('reconnect', on_reconnect)
-
-# Listen
-socketIO.on('aaa_response', on_aaa_response)
-socketIO.emit('aaa')
-socketIO.emit('aaa')
-socketIO.wait(seconds=1)
-
-# Stop listening
-socketIO.off('aaa_response')
-socketIO.emit('aaa')
-socketIO.wait(seconds=1)
-
-# Listen only once
-socketIO.once('aaa_response', on_aaa_response)
-socketIO.emit('aaa')  # Activate aaa_response
-socketIO.emit('aaa')  # Ignore
-socketIO.wait(seconds=1)
+if __name__ == '__main__':
+    asyncio.run(main())
