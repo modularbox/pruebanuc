@@ -7,8 +7,8 @@ sio = socketio.Client()
 def connect():
     print('connection established')
 
-@sio.event
-def csermita(data):
+@sio.on('csermita')
+def programa(data):
     print('message received with ', data)
 
 @sio.event
