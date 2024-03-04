@@ -34,11 +34,11 @@ def ciclo_luces(luces):
 def programa_por_tiempo(data):
     global guardar_configuracion_luces
     luces = Luces(data.get('encender'), data.get('apagar'))
-    if isinstance(guardar_configuracion_luces, None):
-        if guardar_configuracion_luces == luces.encender:
+    if isinstance(guardar_configuracion_luces, Luces): 
+        if luces.encender == guardar_configuracion_luces.encender:
             return None
     else:
-        guardar_configuracion_luces = luces.encender
+        guardar_configuracion_luces = luces
     ciclo_luces(luces.encender)
     time.sleep(data.get('time'))
 
