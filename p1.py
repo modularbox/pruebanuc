@@ -57,7 +57,7 @@ def programa_ejecucion(request):
             print("Peiridankjdnjn")
         else:
             thread_programa_por_tiempo = False
-            print(t_programa.cancel())
+            t_programa.join()
             luces_sockets.off_all_channels()
             thread_programa_por_tiempo = True
             t_programa = iniciar_programa(ejecutar_programa)
@@ -72,7 +72,7 @@ def programa_por_tiempo_ejecucion(request):
     request_programa_por_tiempo = request
     if thread_programa:
         thread_programa = False 
-        print(t_programa.cancel())
+        t_programa.join()
     # Ejecutamos el programa en el tiempo especifico   
     if not thread_programa_por_tiempo:
         luces_sockets.off_all_channels()
@@ -80,7 +80,7 @@ def programa_por_tiempo_ejecucion(request):
         t_programa_por_tiempo = iniciar_programa(ejecutar_programa_por_tiempo)
         time.sleep(request.get('time'))
         thread_programa_por_tiempo = False
-        t_programa_por_tiempo.cancel()
+        t_programa_por_tiempo.join()
         luces_sockets.off_all_channels()
         thread_programa = True 
         t_programa = iniciar_programa(ejecutar_programa)
@@ -89,7 +89,7 @@ def programa_por_tiempo_ejecucion(request):
 def iniciar_programa(funcion):
     print("Iniciando programa...")
     # Iniciar el programa utilizando el executor
-    theared = concurrent.futures.ThreadPoolExecutor().submit(funcion)
+    theared = threading.Thread(target=funcion)
     return theared
 
 # Iniciar los hilos con programa por tiempo, y programa
