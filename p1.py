@@ -49,6 +49,8 @@ def programa_ejecucion(request):
     global request_programa
     global t_programa
     request_programa = request
+    print(thread_programa_por_tiempo)
+    print(thread_programa)
     if not thread_programa_por_tiempo:
         if not thread_programa:
             luces_sockets.off_all_channels()
@@ -56,8 +58,7 @@ def programa_ejecucion(request):
             t_programa = iniciar_programa(ejecutar_programa)
             print("Peiridankjdnjn")
         else:
-            thread_programa_por_tiempo = False
-            t_programa.join()
+            print("Llego una nueva configuracion")
             luces_sockets.off_all_channels()
             thread_programa_por_tiempo = True
             t_programa = iniciar_programa(ejecutar_programa)
