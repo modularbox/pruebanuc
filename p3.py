@@ -15,6 +15,7 @@ class TimedEventThread(threading.Thread):
         super().__init__()
         self.interval = interval
         self.stopped = event
+        self.funcion = funcion
 
     def run(self):
         while not self.stopped.wait(self.interval):
