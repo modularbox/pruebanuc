@@ -6,10 +6,15 @@ import sys
 import luces_sockets
 sio = socketio.Client()
 
+# Theared para terminar los programas
 thread_programa = False
-request_programa = {}
 thread_programa_por_tiempo = False
+# La respuesta de cada socket
+request_programa = {}
 request_programa_por_tiempo = {}
+# Variables para iniciar un thearing 
+t_programa = None
+t_programa_por_tiempo = None
 # Obtener el primer argumento que sera el lugar donde estara la nuc
 # Example: Correr programa python3 luces.py lugar
 lugar = 'garaje'
@@ -27,6 +32,13 @@ def programa_ejecucion(request):
         if not thread_programa:
             luces_sockets.off_all_channels()
             thread_programa = True
+            t_programa.start()
+        else:
+            thread_programa = False
+            t_programa.join()
+            luces_sockets.off_all_channels()
+            thread_programa = True
+            t_programa.start()
     
 # Función para programar la ejecución del programa después de 10 segundos
 def programa_por_tiempo_ejecucion(request):
@@ -35,10 +47,12 @@ def programa_por_tiempo_ejecucion(request):
     request_programa_por_tiempo = request
     if thread_programa:
         thread_programa = False
+    t_programa.join()
     # Ejecutamos el programa en el tiempo especifico   
     if not thread_programa_por_tiempo:
         luces_sockets.off_all_channels()
         thread_programa_por_tiempo = True
+        t_programa_por_tiempo.start()
         time.sleep(request.get('time'))
         thread_programa_por_tiempo = False
         luces_sockets.off_all_channels()
