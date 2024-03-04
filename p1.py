@@ -16,14 +16,13 @@ if len(sys.argv) > 1:
 #
 def ejecutar_programa(res):
     luces_sockets.init_luces(res)
-    
 
 # Función para programar la ejecución del programa después de 10 segundos
 def programar_ejecucion(res):
     global thread_programa
     # Apagar las luces
     luces_sockets.luces_encendidas = False
-    t = threading.Timer(2, ejecutar_programa(res))
+    t = threading.Thread(target=ejecutar_programa(res))
     t.start()
     thread_programa = t
 
