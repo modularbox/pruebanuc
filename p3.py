@@ -5,23 +5,44 @@ import time
 import socketio
 import sys
 import luces_sockets
+from enum import Enum
+
+# Definir una enumeración simple
+class Programas(Enum):
+    PROGRAMA = 1
+    PROGRAMA_POR_TIEMPO = 2
+    NONE = 3
+
 # Crea el evento
 theared_program = threading.Event()
 
 sio = socketio.Client()
 
 class TimedEventThread(threading.Thread):
-    def __init__(self, interval, event, funcion):
+    def __init__(self, interval, event, programa, programa_por_tiempo, request_programa=None, request_programa_por_tiempo=None):
         super().__init__()
         self.interval = interval
         self.stopped = event
-        self.funcion = funcion
+        self.programa_execute = Programas.NONE
+        self.programa = programa
+        self.programa_por_tiempo = programa_por_tiempo
+        self.request_programa = request_programa or []
+        self.request_programa_por_tiempo = request_programa_por_tiempo or []
 
     def run(self):
         while not self.stopped.wait(self.interval):
-            self.funcion()
+            if self.programa_execute == Programas.PROGRAMA:
+                self.programa(request_programa)
+            if self.programa_execute == Programas.PROGRAMA_POR_TIEMPO:
+                self.programa_por_tiempo(request_programa_por_tiempo)
+            if self.programa_execute == Programas.NONE:
+                print("No hay ningun Programa")
             # Coloca aquí el código del evento que deseas ejecutar
             print("Evento ejecutado")
+    
+    def changePrograma(self, nuevo_programa):
+        self.programa_execute = nuevo_programa
+        
 
 # Función para iniciar el evento
 def start_event(event_thread):
@@ -82,24 +103,30 @@ def ejecutar_programa_por_tiempo():
     # while thread_programa_por_tiempo:
     print("Programa por tiempo")
     luces_sockets.programa_por_tiempo(request_programa_por_tiempo)
+    
     # time.sleep(1)
 
 # Función para programar la ejecución del programa después de 10 segundos
 def programa_ejecucion(request):
-    global thread_programa
-    global thread_programa_por_tiempo
-    global request_programa
-    global t_programa
-    global theared_program
-    request_programa = request
-    print(thread_programa_por_tiempo)
-    print(thread_programa)
-    stop_event(t_programa, theared_program)
+    # global thread_programa
+    # global thread_programa_por_tiempo
+    # global request_programa
+    # global t_programa
+    # global theared_program
+    # request_programa = request
+    # print(thread_programa_por_tiempo)
+    # print(thread_programa)
+    global theared
+    theared.request_programa = request
+    if theared.programa_execute != Programas.PROGRAMA_POR_TIEMPO:
+        luces_sockets.off_all_channels()
+        theared.changePrograma(Programas.PROGRAMA)
+    # stop_event(t_programa, theared_program)
     # if not thread_programa_por_tiempo:
     #     if not thread_programa:
-    luces_sockets.off_all_channels()
-    thread_programa = True
-    t_programa = iniciar_programa(ejecutar_programa)
+    # luces_sockets.off_all_channels()
+    # thread_programa = True
+    # t_programa = iniciar_programa(ejecutar_programa)
         #     print("Peiridankjdnjn")
         # else:
         #     print("Llego una nueva configuracion")
@@ -110,44 +137,52 @@ def programa_ejecucion(request):
     
 # Función para programar la ejecución del programa después de 10 segundos
 def programa_por_tiempo_ejecucion(request):
-    global thread_programa_por_tiempo
-    global thread_programa
-    global request_programa_por_tiempo
-    global t_programa
-    global t_programa_por_tiempo
-    request_programa_por_tiempo = request
+    # global thread_programa_por_tiempo
+    # global thread_programa
+    # global request_programa_por_tiempo
+    # global t_programa
+    # global t_programa_por_tiempo
+    # request_programa_por_tiempo = request
     # if thread_programa:
     #     thread_programa = False 
         # t_programa.join()
-    stop_event(t_programa, theared_program)
+    # stop_event(t_programa, theared_program)
     # Ejecutamos el programa en el tiempo especifico   
     # if not thread_programa_por_tiempo:
+
+    global theared
+    theared.request_programa_por_tiempo = request
     luces_sockets.guardar_configuracion_luces = None
     luces_sockets.off_all_channels()
-    thread_programa_por_tiempo = True
-    t_programa = iniciar_programa(ejecutar_programa_por_tiempo)
+    theared.changePrograma(Programas.PROGRAMA_POR_TIEMPO)
+    # luces_sockets.off_all_channels()
+    # thread_programa_por_tiempo = True
+    # t_programa = iniciar_programa(ejecutar_programa_por_tiempo)
     time.sleep(request.get('time'))
-    print("Termino el tiempo")
-    thread_programa_por_tiempo = False
-    stop_event(t_programa, theared_program)
+    # print("Termino el tiempo")
+    # thread_programa_por_tiempo = False
+    # stop_event(t_programa, theared_program)
+
     luces_sockets.off_all_channels()
-    thread_programa = True 
-    t_programa = iniciar_programa(ejecutar_programa)
+    theared.changePrograma(Programas.PROGRAMA)
+    # luces_sockets.off_all_channels()
+    # thread_programa = True 
+    # t_programa = iniciar_programa(ejecutar_programa)
    
 # Función para iniciar el programa
-def iniciar_programa(funcion):
-    global theared_program
-    print("Iniciando programa...")
-    # Iniciar el programa utilizando el executor
-    # Crea el evento
-    # theared_program = threading.Event()
+# def iniciar_programa(funcion):
+#     global theared_program
+#     print("Iniciando programa...")
+#     # Iniciar el programa utilizando el executor
+#     # Crea el evento
+#     # theared_program = threading.Event()
 
-    # Crea el hilo para el evento
-    theared = TimedEventThread(1, theared_program, funcion)
-    start_event(theared)
-    # theared = threading.Thread(target=funcion)
-    # theared.start()
-    return theared
+#     # Crea el hilo para el evento
+#     theared = TimedEventThread(1, theared_program, funcion)
+#     start_event(theared)
+#     # theared = threading.Thread(target=funcion)
+#     # theared.start()
+#     return theared
 
 # Funcion de los sockets
 @sio.event
@@ -160,6 +195,8 @@ def programa(data):
 
 @sio.on('programa_por_tiempo' + lugar)
 def programa_por_tiempo(data):
+    global theared
+    theared.changePrograma(Programas.PROGRAMA)
     programa_por_tiempo_ejecucion(data)
 
 @sio.event
@@ -169,4 +206,7 @@ def disconnect():
 if __name__ == "__main__":
     # Iniciar los sockets
     sio.connect('http://192.168.1.136:3005')
+    # Crea el hilo para el evento
+    theared = TimedEventThread(1, theared_program, ejecutar_programa, ejecutar_programa_por_tiempo)
+    start_event(theared)
     sio.wait()
