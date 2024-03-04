@@ -70,7 +70,6 @@ def programa_por_tiempo_ejecucion(request):
     global t_programa_por_tiempo
     request_programa_por_tiempo = request
     if thread_programa:
-         thread_programa = False
          t_programa.cancel()
     # Ejecutamos el programa en el tiempo especifico   
     if not thread_programa_por_tiempo:
@@ -79,7 +78,6 @@ def programa_por_tiempo_ejecucion(request):
         time.sleep(request.get('time'))
         t_programa_por_tiempo.cancel()
         luces_sockets.off_all_channels()
-        thread_programa = True
         t_programa = iniciar_programa(ejecutar_programa)
    
 # Función para iniciar el programa
