@@ -30,9 +30,19 @@ def ciclo_luces(luces):
 # ------------------ Aqui termina el codigo ------------------
 # ------------------ Codigo para la programacion de las luces en horas ------------------
         
+# Programa para ejecutar el programa por tiempo
+def programa_por_tiempo(data):
+    luces = Luces(data.get('encender'), data.get('apagar'))
+    if isinstance(guardar_configuracion_luces, None):
+        if guardar_configuracion_luces == luces.encender:
+            return None
+    else:
+        guardar_configuracion_luces = luces.encender
+    ciclo_luces(luces.encender)
+    time.sleep(data.get('time'))
+
 # Función que comprueba si la hora actual está dentro del rango especificado
 def verificar_hora(hora_inicio, hora_fin):
-
     # Obtener la fecha y hora actual
     fecha_actual = datetime.now()
 
@@ -113,13 +123,12 @@ def get_light_state_from_api(data):
     # Guardar las luces
     luces = Luces(data.get('encender'), data.get('apagar'))
     return luces
+
+#Iniciar el programa
 def init_luces(response):
-    while True:
-        luces = get_light_state_from_api(response)
-        # print(luces)
-        if luces != None: 
-            ciclo_luces(luces.encender)
-            time.sleep(2)
+    luces = get_light_state_from_api(response)
+    if luces != None: 
+        ciclo_luces(luces.encender)
 print("LucesTermino")
 """
  FT232R USB UART:
