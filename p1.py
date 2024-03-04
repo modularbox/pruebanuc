@@ -80,8 +80,8 @@ def ejecutar_programa_por_tiempo():
         time.sleep(2)
 
 # Iniciar los hilos con programa por tiempo, y programa
-t_programa = threading.Thread(target=ejecutar_programa())
-t_programa_por_tiempo = threading.Thread(target=ejecutar_programa_por_tiempo())
+t_programa = threading.Thread(target=ejecutar_programa)
+t_programa_por_tiempo = threading.Thread(target=ejecutar_programa_por_tiempo)
 
 # Funcion de los sockets
 @sio.event
