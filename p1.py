@@ -31,6 +31,7 @@ def programa_ejecucion(request):
             luces_sockets.off_all_channels()
             thread_programa = True
             t_programa.start()
+            print("Peiridankjdnjn")
         else:
             thread_programa = False
             t_programa.join()
