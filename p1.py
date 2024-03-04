@@ -27,6 +27,7 @@ def programa_ejecucion(request):
     global thread_programa
     global thread_programa_por_tiempo
     global request_programa
+    global t_programa
     request_programa = request
     if not thread_programa_por_tiempo:
         if not thread_programa:
@@ -44,6 +45,8 @@ def programa_ejecucion(request):
 def programa_por_tiempo_ejecucion(request):
     global thread_programa_por_tiempo
     global request_programa_por_tiempo
+    global t_programa
+    global t_programa_por_tiempo
     request_programa_por_tiempo = request
     if thread_programa:
         thread_programa = False
@@ -57,6 +60,7 @@ def programa_por_tiempo_ejecucion(request):
         thread_programa_por_tiempo = False
         luces_sockets.off_all_channels()
         thread_programa = True
+        t_programa.start()
     
 # Ejecutar el programa
 def ejecutar_programa():
