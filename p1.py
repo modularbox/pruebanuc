@@ -42,6 +42,7 @@ def programa_ejecucion(request):
 # Función para programar la ejecución del programa después de 10 segundos
 def programa_por_tiempo_ejecucion(request):
     global thread_programa_por_tiempo
+    global thread_programa
     global request_programa_por_tiempo
     global t_programa
     global t_programa_por_tiempo
