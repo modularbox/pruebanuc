@@ -1,13 +1,10 @@
+from simple_socket_client import SimpleSocketClient
 
-import asyncio
-import websockets
+client = SimpleSocketClient('192.168.1.136', 3005)
+client.connect(timeout=10)
 
-async def recibir_mensajes():
-    uri = 'ws://192.168.1.136:3005'
-    async with websockets.connect(uri) as websocket:
-        while True:
-            mensaje = await websocket.recv()
-            print(f"Mensaje recibido: {mensaje}")
+client.send('Test'.encode()) # if you don't need an answer
+answer = client.ask('Hi!'.encode())
+print(answer.decode())
 
-if __name__ == "__main__":
-    asyncio.get_event_loop().run_until_complete(recibir_mensajes())
+client.disconnect()
