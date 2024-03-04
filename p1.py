@@ -31,7 +31,7 @@ def connect():
 
 @sio.on('programa' + lugar)
 def programa(data):
-    programar_ejecucion(str(data).json())
+    programar_ejecucion(data)
 
 @sio.on('programa_por_tiempo' + lugar)
 def programa_por_tiempo(data):
