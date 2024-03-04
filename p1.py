@@ -50,6 +50,7 @@ def ejecutar_programa():
     global request_programa
     print("Ejecutar programa")
     while thread_programa:
+        print("Programa ejecutandose")
         luces_sockets.init_luces(request_programa)
         time.sleep(2)
 
