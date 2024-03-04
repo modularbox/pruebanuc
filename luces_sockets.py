@@ -43,10 +43,13 @@ def verificar_hora(hora_inicio, hora_fin):
     # Asignar una hora específica (por ejemplo, 15:30:00)
     fecha_inicio = fecha_hora_inicio.replace(year=fecha_actual.year, month=fecha_actual.month, day=fecha_actual.day)
     fecha_fin = fecha_hora_fin.replace(year=fecha_actual.year, month=fecha_actual.month, day=fecha_actual.day)
+    
+    # Esto es para que no se apage un minuto y se vuelva a encender
     if fecha_actual.hour == 23 and fecha_actual.minute == 59:
         return True
     if fecha_inicio <= fecha_actual <= fecha_fin: 
         return True
+    return False
 
     
 def verificar_horarios(horarios):
@@ -81,19 +84,18 @@ def get_light_state_from_api(data):
     # data = response.json()
 
     # Existe el cliente
-    if data.get('cliente') != None:
-        luces = Luces(data.get('encender'), [])
-        print("Si existe")
-        time.sleep(60)
+    # if data.get('cliente') != None:
+    #     luces = Luces(data.get('encender'), [])
+    #     print("Si existe")
+    #     time.sleep(60)
 
     # Encender las luces
-    luces = Luces(data.get('encender'), data.get('apagar'))
-    if isinstance(guardar_configuracion_luces, Luces): 
-        if luces.encender != guardar_configuracion_luces.encender:
-            luces_encendidas = False 
-            guardar_configuracion_luces = luces
-    else:
-        guardar_configuracion_luces = luces
+    # if isinstance(guardar_configuracion_luces, Luces): 
+        # if luces.encender != guardar_configuracion_luces.encender:
+    # luces_encendidas = False 
+            # guardar_configuracion_luces = luces
+    # else:
+        # guardar_configuracion_luces = luces
     
     # Verificar el horario para encender las luces o apagarlas
     if verificar_horarios(data.get('horarios')):
@@ -108,15 +110,17 @@ def get_light_state_from_api(data):
             print("ApagarLuces")
             off_all_channels()
         return None
+    # Guardar las luces
+    luces = Luces(data.get('encender'), data.get('apagar'))
     return luces
 def init_luces(response):
-    while True:
-        luces = get_light_state_from_api(response)
-        print(luces)
-        if luces != None: 
-            ciclo_luces(luces.encender)
+    # while True:
+    luces = get_light_state_from_api(response)
+    # print(luces)
+    if luces != None: 
+        ciclo_luces(luces.encender)
 
-        time.sleep(4)
+        # time.sleep(4)
 print("LucesTermino")
 """
  FT232R USB UART:

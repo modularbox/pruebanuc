@@ -21,6 +21,8 @@ def ejecutar_programa(res):
 # Función para programar la ejecución del programa después de 10 segundos
 def programar_ejecucion(res):
     global thread_programa
+    # Apagar las luces
+    luces_sockets.luces_encendidas = False
     t = threading.Timer(2, ejecutar_programa(res))
     t.start()
     thread_programa = t
