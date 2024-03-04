@@ -58,6 +58,7 @@ def programa_por_tiempo_ejecucion(request):
         time.sleep(request.get('time'))
         thread_programa_por_tiempo = False
         luces_sockets.off_all_channels()
+        t_programa_por_tiempo.join()
         thread_programa = True
         t_programa.start()
    
