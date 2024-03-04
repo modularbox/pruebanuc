@@ -86,23 +86,23 @@ if len(sys.argv) > 1:
     print("El valor del parámetro es:", lugar)
 
 # Ejecutar el programa
-def ejecutar_programa():
-    global thread_programa
-    global request_programa
+def ejecutar_programa(request):
+    # global thread_programa
+    # global request_programa
     # print("Ejecutar programa")
     # while thread_programa:
     print("Programa ejecutandose")
-    luces_sockets.init_luces(request_programa)
+    luces_sockets.init_luces(request)
         # time.sleep(1)
 
 # Ejecutar el programa
-def ejecutar_programa_por_tiempo():
-    global thread_programa_por_tiempo
-    global request_programa_por_tiempo
+def ejecutar_programa_por_tiempo(request):
+    # global thread_programa_por_tiempo
+    # global request_programa_por_tiempo
     print("Ejecutar programa por tiempo")
     # while thread_programa_por_tiempo:
     print("Programa por tiempo")
-    luces_sockets.programa_por_tiempo(request_programa_por_tiempo)
+    luces_sockets.programa_por_tiempo(request)
     
     # time.sleep(1)
 
