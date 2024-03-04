@@ -1,10 +1,36 @@
-from simple_socket_client import SimpleSocketClient
 
-client = SimpleSocketClient('192.168.1.136', 3005)
-client.connect(timeout=10)
+from socketIO_client import SocketIO, LoggingNamespace
 
-client.send('Test'.encode()) # if you don't need an answer
-answer = client.ask('Hi!'.encode())
-print(answer.decode())
+def on_connect():
+    print('connect')
 
-client.disconnect()
+def on_disconnect():
+    print('disconnect')
+
+def on_reconnect():
+    print('reconnect')
+
+def on_aaa_response(*args):
+    print('on_aaa_response', args)
+
+socketIO = SocketIO('localhost', 8000, LoggingNamespace)
+socketIO.on('connect', on_connect)
+socketIO.on('disconnect', on_disconnect)
+socketIO.on('reconnect', on_reconnect)
+
+# Listen
+socketIO.on('aaa_response', on_aaa_response)
+socketIO.emit('aaa')
+socketIO.emit('aaa')
+socketIO.wait(seconds=1)
+
+# Stop listening
+socketIO.off('aaa_response')
+socketIO.emit('aaa')
+socketIO.wait(seconds=1)
+
+# Listen only once
+socketIO.once('aaa_response', on_aaa_response)
+socketIO.emit('aaa')  # Activate aaa_response
+socketIO.emit('aaa')  # Ignore
+socketIO.wait(seconds=1)
