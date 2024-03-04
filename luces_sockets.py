@@ -85,7 +85,6 @@ def get_light_state_from_api():
         luces = Luces(data.get('encender'), [])
         print("Si existe")
         time.sleep(60)
-        
 
     # Encender las luces
     luces = Luces(data.get('encender'), data.get('apagar'))
