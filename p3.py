@@ -5,21 +5,25 @@ import time
 import socketio
 import sys
 import luces_sockets
+# Crea el evento
+theared_program = threading.Event()
+
 sio = socketio.Client()
 
 class TimedEventThread(threading.Thread):
-    def __init__(self, interval, event):
+    def __init__(self, interval, event, funcion):
         super().__init__()
         self.interval = interval
         self.stopped = event
 
     def run(self):
         while not self.stopped.wait(self.interval):
+            self.funcion()
             # Coloca aquí el código del evento que deseas ejecutar
             print("Evento ejecutado")
 
 # Función para iniciar el evento
-def start_event(event_thread, event):
+def start_event(event_thread):
     if not event_thread.is_alive():
         event_thread.start()
         print("Evento iniciado")
@@ -35,17 +39,14 @@ def stop_event(event_thread, event):
     else:
         print("El evento no está en ejecución")
 
-if __name__ == "__main__":
-    # Crea el evento
-    stop_flag = threading.Event()
+# if __name__ == "__main__":
+#     # Crea el hilo para el evento
+#     event_thread = TimedEventThread(5, stop_flag)
 
-    # Crea el hilo para el evento
-    event_thread = TimedEventThread(5, stop_flag)
-
-    # Ejemplo de uso: iniciar y detener el evento
-    start_event(event_thread, stop_flag)
-    time.sleep(10)  # Simula un período de tiempo
-    stop_event(event_thread, stop_flag)
+#     # Ejemplo de uso: iniciar y detener el evento
+#     start_event(event_thread, stop_flag)
+#     time.sleep(10)  # Simula un período de tiempo
+#     stop_event(event_thread, stop_flag)
 
 # Theared para terminar los programas
 thread_programa = False
@@ -66,21 +67,21 @@ if len(sys.argv) > 1:
 def ejecutar_programa():
     global thread_programa
     global request_programa
-    print("Ejecutar programa")
-    while thread_programa:
-        print("Programa ejecutandose")
-        luces_sockets.init_luces(request_programa)
-        time.sleep(1)
+    # print("Ejecutar programa")
+    # while thread_programa:
+    print("Programa ejecutandose")
+    luces_sockets.init_luces(request_programa)
+        # time.sleep(1)
 
 # Ejecutar el programa
 def ejecutar_programa_por_tiempo():
     global thread_programa_por_tiempo
     global request_programa_por_tiempo
     print("Ejecutar programa por tiempo")
-    while thread_programa_por_tiempo:
-        print("Programa por tiempo")
-        luces_sockets.programa_por_tiempo(request_programa_por_tiempo)
-        time.sleep(1)
+    # while thread_programa_por_tiempo:
+    print("Programa por tiempo")
+    luces_sockets.programa_por_tiempo(request_programa_por_tiempo)
+    # time.sleep(1)
 
 # Función para programar la ejecución del programa después de 10 segundos
 def programa_ejecucion(request):
@@ -88,6 +89,7 @@ def programa_ejecucion(request):
     global thread_programa_por_tiempo
     global request_programa
     global t_programa
+    global theared_program
     request_programa = request
     print(thread_programa_por_tiempo)
     print(thread_programa)
@@ -99,6 +101,7 @@ def programa_ejecucion(request):
             print("Peiridankjdnjn")
         else:
             print("Llego una nueva configuracion")
+            stop_event(t_programa, theared_program)
             luces_sockets.off_all_channels()
             thread_programa_por_tiempo = True
             t_programa = iniciar_programa(ejecutar_programa)
@@ -113,7 +116,8 @@ def programa_por_tiempo_ejecucion(request):
     request_programa_por_tiempo = request
     if thread_programa:
         thread_programa = False 
-        t_programa.join()
+        # t_programa.join()
+        stop_event(t_programa, theared_program)
     # Ejecutamos el programa en el tiempo especifico   
     if not thread_programa_por_tiempo:
         luces_sockets.guardar_configuracion_luces = None
@@ -123,17 +127,24 @@ def programa_por_tiempo_ejecucion(request):
         time.sleep(request.get('time'))
         print("Termino el tiempo")
         thread_programa_por_tiempo = False
-        t_programa_por_tiempo.join()
+        stop_event(t_programa_por_tiempo, theared_program)
         luces_sockets.off_all_channels()
         thread_programa = True 
         t_programa = iniciar_programa(ejecutar_programa)
    
 # Función para iniciar el programa
 def iniciar_programa(funcion):
+    global theared_program
     print("Iniciando programa...")
     # Iniciar el programa utilizando el executor
-    theared = threading.Thread(target=funcion)
-    theared.start()
+    # Crea el evento
+    # theared_program = threading.Event()
+
+    # Crea el hilo para el evento
+    theared = TimedEventThread(1, theared_program, funcion)
+    start_event(theared)
+    # theared = threading.Thread(target=funcion)
+    # theared.start()
     return theared
 
 # Funcion de los sockets
