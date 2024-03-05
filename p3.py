@@ -32,9 +32,9 @@ class TimedEventThread(threading.Thread):
     def run(self):
         while not self.stopped.wait(self.interval):
             if self.programa_execute == Programas.PROGRAMA:
-                self.programa(request_programa)
+                self.programa(self.request_programa)
             if self.programa_execute == Programas.PROGRAMA_POR_TIEMPO:
-                self.programa_por_tiempo(request_programa_por_tiempo)
+                self.programa_por_tiempo(self.request_programa_por_tiempo)
             if self.programa_execute == Programas.NONE:
                 print("No hay ningun Programa")
             # Coloca aquí el código del evento que deseas ejecutar
