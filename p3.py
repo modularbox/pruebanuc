@@ -26,8 +26,8 @@ class TimedEventThread(threading.Thread):
         self.programa_execute = Programas.NONE
         self.programa = programa
         self.programa_por_tiempo = programa_por_tiempo
-        self.request_programa = request_programa or []
-        self.request_programa_por_tiempo = request_programa_por_tiempo or []
+        self.request_programa = request_programa or {}
+        self.request_programa_por_tiempo = request_programa_por_tiempo or {}
 
     def run(self):
         while not self.stopped.wait(self.interval):
@@ -80,8 +80,8 @@ def stop_event(event_thread, event):
 thread_programa = False
 thread_programa_por_tiempo = False
 # La respuesta de cada socket
-request_programa = {}
-request_programa_por_tiempo = {}
+# request_programa = {}
+# request_programa_por_tiempo = {}
 # Obtener el primer argumento que sera el lugar donde estara la nuc
 t_programa = None
 t_programa_por_tiempo = None
