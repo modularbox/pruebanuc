@@ -92,6 +92,7 @@ def ejecutar_programa(request):
     # print("Ejecutar programa")
     # while thread_programa:
     print("Programa ejecutandose")
+    print(request)
     luces_sockets.init_luces(request)
         # time.sleep(1)
 
