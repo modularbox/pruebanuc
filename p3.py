@@ -42,6 +42,12 @@ class TimedEventThread(threading.Thread):
     
     def changePrograma(self, nuevo_programa):
         self.programa_execute = nuevo_programa
+
+    def changeRequestPrograma(self, nuevo_request):
+        self.request_programa = nuevo_request
+
+    def changeRequestProgramaPorTiempo(self, nuevo_request):
+        self.request_programa_por_tiempo = nuevo_request
         
 
 # Función para iniciar el evento
@@ -118,7 +124,7 @@ def programa_ejecucion(request):
     # print(thread_programa_por_tiempo)
     # print(thread_programa)
     global theared
-    theared.request_programa = request
+    theared.changeRequestPrograma(request)
     if theared.programa_execute != Programas.PROGRAMA_POR_TIEMPO:
         luces_sockets.off_all_channels()
         theared.changePrograma(Programas.PROGRAMA)
@@ -152,7 +158,7 @@ def programa_por_tiempo_ejecucion(request):
     # if not thread_programa_por_tiempo:
 
     global theared
-    theared.request_programa_por_tiempo = request
+    theared.changeRequestProgramaPorTiempo(request)
     luces_sockets.guardar_configuracion_luces = None
     luces_sockets.off_all_channels()
     theared.changePrograma(Programas.PROGRAMA_POR_TIEMPO)
@@ -196,8 +202,6 @@ def programa(data):
 
 @sio.on('programa_por_tiempo' + lugar)
 def programa_por_tiempo(data):
-    global theared
-    theared.changePrograma(Programas.PROGRAMA)
     programa_por_tiempo_ejecucion(data)
 
 @sio.event
